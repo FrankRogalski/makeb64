@@ -6,16 +6,18 @@ const ONES: u128 = 2u128.pow(DIGITS as u32 * 6) - 1;
 fn main() {
     for _ in 0..10 {
         let num = random::<u128>() & ONES;
-        let res = decode(&encode(num));
-        println!("{num}, {res}");
+        let string = encode(num);
+        let res = decode(&string);
+        println!("{num}, {string}, {res}");
     }
 }
 
 fn decode(string: &str) -> u128 {
+    assert_eq!(string.len(), DIGITS);
     let mut num: u128 = 0;
-    for chr in string.chars().rev() {
+    for chr in string.bytes().rev() {
         num <<= 6;
-        num |= match chr {
+        num |= match chr as char {
             i @ 'A'..='Z' => i as u8 - b'A',
             i @ 'a'..='z' => i as u8 - b'a' + 26,
             i @ '0'..='9' => i as u8 - b'0' + 52,
