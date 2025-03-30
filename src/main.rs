@@ -1,10 +1,11 @@
 use rand::random;
 
 const DIGITS: usize = 120 / 6;
+const ONES: u128 = 2u128.pow(DIGITS as u32 * 6) - 1;
 
 fn main() {
     for _ in 0..10 {
-        let num = random::<u128>() & (2u128.pow(DIGITS as u32 * 6) - 1);
+        let num = random::<u128>() & ONES;
         let res = decode(&encode(num));
         println!("{num}, {res}");
     }
