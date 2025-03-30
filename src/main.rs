@@ -4,7 +4,7 @@ const DIGITS: usize = 120 / 6;
 
 fn main() {
     for _ in 0..10 {
-        let num: u128 = random();
+        let num = random::<u128>() & (2u128.pow(DIGITS as u32 * 6) - 1);
         let res = decode(&encode(num));
         println!("{num}, {res}");
     }
